@@ -194,7 +194,8 @@ EN.update(
     svc=[("Certification", "Audits and certificates for 15 ISO management system standards.", "#certification", "See the standards"),
          ("Training", "Lead Auditor, internal auditor and tailored courses for your team.", "#training", "See the courses"),
          ("Sustainability", "Carbon footprint, EPD, life cycle assessment and CBAM support.", "#sustainability", "See the services")],
-    ill_title="Management system certificate", ill_ok="Audit passed",
+    ill_title="Management System Certificate", ill_ok="Audit passed",
+    h1a="ISO Certification, Auditor Training and Sustainability Services", h1b="in Egypt",
     cert_p="Pick what your organization needs to manage and see the standards that fit.",
 )
 AR.update(
@@ -206,6 +207,7 @@ AR.update(
          ("التدريب", "دورات كبير المراجعين والمراجع الداخلي ودورات مصممة لفريقك.", "#training", "الدورات"),
          ("الاستدامة", "البصمة الكربونية والإعلانات البيئية وتقييم دورة الحياة ودعم CBAM.", "#sustainability", "الخدمات")],
     ill_title="شهادة نظام إدارة", ill_ok="تم اجتياز المراجعة",
+    h1a="شهادات الأيزو وتدريب المراجعين وخدمات الاستدامة", h1b="في مصر",
     cert_p="اختر ما تحتاج مؤسستك إلى إدارته لتظهر لك المواصفات المناسبة.",
 )
 
@@ -226,6 +228,12 @@ ICONS = {
     "ISO 55001": '<path d="M3 8l9-5 9 5v8l-9 5-9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
     "ISO 41001": '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/>',
 }
+ICONS.update({
+    "plane": '<path d="M21 3L3 10.5l7 2.5 2.5 7z"/><path d="M10 13l5-5"/>',
+    "shieldcheck": '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+    "globe": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+    "doc": '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>',
+})
 def ico(k, cls="ico"):
     return f'<svg class="{cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{ICONS[k]}</svg>'
 
@@ -419,6 +427,97 @@ footer a:hover{text-decoration:underline}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reg-list a{transition:none}}
 """
 
+CSS += """
+/* v3: light hero, per client mockup */
+body{background:#fff}
+h1{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.22}
+.wrap{max-width:1320px}
+.top{box-shadow:0 2px 18px rgba(15,47,102,.10)}
+.top .wrap{min-height:116px;max-width:1480px}
+.brand img{height:86px}.brand .mark{font-size:3rem}
+.brand .bn{font-size:1.5rem}.brand .bg{font-size:1rem}
+.nav .lang{display:inline-flex;align-items:center;gap:6px}
+.nav .lang .ico{width:18px;height:18px;color:var(--blue)}
+.btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#3DB24F,#1E8A3A);border:0;padding:15px 28px;box-shadow:0 10px 22px rgba(42,157,75,.32)}
+.btn:hover{background:linear-gradient(135deg,#34A046,#187A32)}
+.btn .ico{width:20px;height:20px}
+.btn.navy,.nav .btn.navy{background:linear-gradient(135deg,#1B4F9C,#0F2F66);box-shadow:0 10px 22px rgba(15,47,102,.28);padding:13px 24px}
+.btn.out{background:#fff;color:var(--blue);border:2px solid var(--blue);padding:13px 26px;box-shadow:none}
+.btn.out:hover{background:var(--sky)}
+.btn.white{background:#fff;color:var(--blue-d);border:0;box-shadow:none}
+.arrow::after{content:"\\2192";font-weight:700;margin-inline-start:2px}
+[dir=rtl] .arrow::after{content:"\\2190"}
+.hero{color:var(--text);background:linear-gradient(180deg,#F1F7FF 0%,#fff 100%);padding:56px 0 140px}
+[dir=rtl] .hero{background:linear-gradient(180deg,#F1F7FF 0%,#fff 100%)}
+.hero::before,.hero::after{display:none}
+.hero .wrap{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:32px}
+.hero h1{color:var(--blue-d)}
+.hero h1 .eg{color:var(--green);display:inline-block;border-bottom:4px solid #7AD15A;border-radius:0 0 40px 4px;padding-bottom:2px}
+.hero .lead{color:var(--text);font-size:1.08rem}
+.fact{color:var(--head);border-inline-start:4px solid var(--green);padding-inline-start:12px;font-size:.95rem}
+.fact a{color:inherit;text-decoration:none}
+.ill{min-height:440px}
+.sky{position:absolute;inset:-56px -40px -60px 0;width:calc(100% + 40px);height:calc(100% + 116px);border-radius:0 0 0 80px}
+[dir=rtl] .sky{transform:scaleX(-1)}
+.cert{inset-inline-start:6%;top:46px;width:50%;transform:rotate(-5deg);border-radius:6px;padding:26px 24px 20px;border:1px solid #E8D9A8;outline:5px solid #fff;box-shadow:0 26px 50px rgba(15,47,102,.28)}
+[dir=rtl] .cert{transform:rotate(5deg)}
+.cert b{font-size:1.25rem;line-height:1.25;margin-bottom:16px;max-width:75%}
+.cert .ln{height:8px;background:#E6EDF6}
+.sig{width:90px;height:30px;display:block;margin-top:14px}
+.gold{position:absolute;inset-inline-end:-18px;top:34px;width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFE9A6,#E3A812 60%,#B97E00);border:3px solid #fff;box-shadow:0 8px 16px rgba(185,126,0,.4);display:flex;align-items:center;justify-content:center}
+.gold i{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.85)}
+.gold::after{content:"";position:absolute;top:56px;left:20px;width:24px;height:34px;background:linear-gradient(#2F7DE1,#1B4F9C);clip-path:polygon(0 0,100% 0,100% 100%,50% 76%,0 100%);z-index:-1}
+.shield{position:absolute;inset-inline-start:40%;top:210px;width:150px;filter:drop-shadow(0 16px 22px rgba(21,87,192,.4))}
+.isos{position:absolute;inset-inline-end:0;top:36px;display:flex;flex-direction:column;gap:14px;width:35%}
+.iso{display:flex;align-items:center;gap:12px;background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 12px 26px rgba(15,47,102,.18)}
+.iso .ib{width:44px;height:44px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;background:var(--sky);color:var(--blue)}
+.iso:nth-child(2) .ib{background:#E9F7ED;color:var(--green)}
+.iso b{white-space:nowrap;display:block;color:var(--blue-d);font-size:.98rem;direction:ltr}
+[dir=rtl] .iso b{text-align:right}
+.iso small{display:block;font-size:.78rem;line-height:1.3;color:var(--text)}
+/* service cards */
+.sc{flex-direction:row;gap:18px;align-items:flex-start;border-top:0;position:relative;overflow:hidden;padding:28px 26px 32px}
+.sc::after{content:"";position:absolute;bottom:0;inset-inline-start:0;width:46%;height:7px;border-radius:0 8px 0 0;background:linear-gradient(90deg,#1B4F9C,#4FA3FF)}
+[dir=rtl] .sc::after{border-radius:8px 0 0 0}
+.sc:nth-child(2)::after{background:linear-gradient(90deg,#1E8A3A,#7AD15A)}
+.sc:nth-child(3)::after{background:linear-gradient(90deg,#5B34B8,#A987F2)}
+.sc .ib{width:66px;height:66px;border-radius:50%;flex:none;margin:0;background:linear-gradient(135deg,#DCEBFB,#B9D6F8);color:var(--blue)}
+.sc:nth-child(2) .ib{background:linear-gradient(135deg,#DDF4E2,#B5E6BF);color:#1E8A3A}
+.sc:nth-child(3) .ib{background:linear-gradient(135deg,#EBE3FB,#D2C1F6);color:#5B34B8}
+.sc .ib .ico{width:32px;height:32px}
+.sc .no{position:absolute;top:14px;inset-inline-end:20px;font-size:2rem;font-weight:800;color:#DCE7F5;line-height:1}
+.sc h3{font-size:1.35rem;margin-bottom:6px}
+.sc p{margin-bottom:8px}
+.sc a{display:inline-block}
+/* section headings */
+.center h2::before{content:"";display:block;width:60px;height:5px;border-radius:99px;background:linear-gradient(90deg,#7AD15A,#2A9D4B);margin:0 auto 14px}
+/* standards cards */
+.reg-list .ib{border-radius:50%}
+.reg-list a::after{content:"\\203A";margin-inline-start:auto;font-size:1.5rem;font-weight:700;color:var(--blue);line-height:1}
+[dir=rtl] .reg-list a::after{content:"\\2039"}
+.reg-list li[data-cat=food] .ib{background:#FFF0DE;color:#E9821A}
+.reg-list li[data-cat=gov] .ib{background:#EFE9FB;color:#5B34B8}
+.reg-list li[data-cat=assets] .ib{background:#E2F5F4;color:#12867F}
+.tc .ib{border-radius:50%}
+@media (max-width:1120px){.nav{top:116px}}
+@media (max-width:900px){
+ .hero .wrap{grid-template-columns:1fr}
+ .hero{padding:40px 0 130px}
+ .ill{min-height:400px;max-width:560px;margin-inline:auto;width:100%}
+ .sky{inset:-20px -24px -40px -24px;width:calc(100% + 48px);height:calc(100% + 60px);border-radius:28px}
+}
+@media (max-width:600px){
+ .top .wrap{min-height:92px}.nav{top:92px}
+ .brand img{height:64px}.brand .mark{font-size:2.2rem}
+ .brand .bn{font-size:1.1rem}.brand .bg{font-size:.82rem}
+ .ill{min-height:360px}
+ .cert{width:56%;top:30px;padding:18px 16px 14px}.cert b{font-size:1rem}
+ .isos{width:40%;gap:10px;top:16px}.iso{padding:8px 10px;gap:8px}.iso .ib{width:34px;height:34px}.iso small{display:none}
+ .shield{width:110px;top:190px;inset-inline-start:34%}
+ .sc .no{font-size:1.6rem}
+}
+"""
+
 JS = """
 (function(){
   var b=document.querySelector('.burger'),n=document.getElementById('nav');
@@ -462,8 +561,9 @@ def render(t):
 
     chips = "".join(f'<button type="button" data-cat="{k}" aria-pressed="{"true" if k=="all" else "false"}">{e(l)}</button>' for k, l in t["cats"])
     reg = "".join(f'<li data-cat="{c}"><a href="{p}"><span class="ib">{ico(n)}</span><span><span class="num">{n}</span><span class="nm">{e(a if ar else en)}</span></span></a></li>' for n, en, a, c, p in STANDARDS)
-    svc_icons = ["ISO 9001", "ISO 21001", "ISO 14001"]
-    svc = "".join(f'<div class="sc"><span class="ib">{ico(k)}</span><h3>{e(h)}</h3><p>{e(p)}</p><a href="{u}">{e(l)}</a></div>' for (h, p, u, l), k in zip(t["svc"], svc_icons))
+    svc_icons = ["doc", "ISO 21001", "ISO 14001"]
+    svc = "".join(f'<div class="sc"><span class="no">0{i}</span><span class="ib">{ico(k)}</span><div><h3>{e(h)}</h3><p>{e(p)}</p><a class="arrow" href="{u}">{e(l)}</a></div></div>' for i, ((h, p, u, l), k) in enumerate(zip(t["svc"], svc_icons), 1))
+    isos = "".join(f'<span class="iso"><span class="ib">{ico(n)}</span><span><b>{n}</b><small>{e(a if ar else en)}</small></span></span>' for n, en, a, c, p in STANDARDS[:3])
     steps = "".join(f"<li><h3>{e(h)}</h3><p>{e(p)}</p></li>" for h, p in t["steps"])
     tr_icons = ["ISO 21001", "ISO 37301", "ISO 55001"]
     train = "".join(f'<div class="tc"><span class="ib">{ico(k)}</span><h3>{e(h)}</h3><p>{e(p)}</p><a href="{u}">{e(l)}</a></div>' for (h, p, u, l), k in zip(t["train_items"], tr_icons))
@@ -516,25 +616,42 @@ def render(t):
     <a href="#sustainability">{e(t['nav_sus'])}</a>
     <a href="#accreditation">{e(t['nav_acc'])}</a>
     <a href="/certificate-search/">{e(t['nav_verify'])}</a>
-    <a class="lang" href="{t['alt_path']}" lang="{t['alt_lang']}" hreflang="{t['alt_lang']}">{t['alt_label']}</a>
-    <a class="btn" href="#contact">{e(t['cta_quote'])}</a>
+    <a class="lang" href="{t['alt_path']}" lang="{t['alt_lang']}" hreflang="{t['alt_lang']}">{ico('globe')}{t['alt_label']}</a>
+    <a class="btn navy arrow" href="#contact">{e(t['cta_quote'])}</a>
   </nav>
 </div></header>
 
 <main id="main">
 <div class="hero"><div class="wrap">
   <div>
-    <a class="badge" href="#accreditation"><i></i>{e(t['hero_badge'])}</a>
-    <h1>{e(t['h1'])}</h1>
+    <h1>{e(t['h1a'])} <span class="eg">{e(t['h1b'])}</span></h1>
     <p class="lead">{e(t['lead'])}</p>
-    <div class="cta"><a class="btn" href="#contact">{e(t['cta_quote'])}</a><a class="btn line" href="/certificate-search/">{e(t['nav_verify'])}</a></div>
-    <p class="fact">{e(t['hero_fact'])}</p>
+    <div class="cta"><a class="btn arrow" href="#contact">{ico('plane')}{e(t['cta_quote'])}</a><a class="btn out" href="/certificate-search/">{ico('shieldcheck')}{e(t['nav_verify'])}</a></div>
+    <p class="fact"><a href="#accreditation">{e(t['hero_fact'])}</a></p>
   </div>
   <div class="ill" aria-hidden="true">
-    <div class="cert"><div class="bar"></div><b>{e(t['ill_title'])}</b><div class="ln"></div><div class="ln"></div><div class="ln s"></div><span class="ok">{ico('ISO 9001')}{e(t['ill_ok'])}</span><div class="seal">{ico('ISO 9001')}</div></div>
-    <span class="chip c1">{ico('ISO 9001')}ISO 9001</span>
-    <span class="chip c2">{ico('ISO 14001')}ISO 14001</span>
-    <span class="chip c3">{ico('ISO/IEC 27001')}ISO/IEC 27001</span>
+    <svg class="sky" viewBox="0 0 600 460" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2F7DE1"/><stop offset="1" stop-color="#0F2F66"/></linearGradient>
+        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7AD15A"/><stop offset="1" stop-color="#2A9D4B"/></linearGradient>
+        <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEBFB"/><stop offset="1" stop-color="#F3F8FF"/></linearGradient>
+      </defs>
+      <path d="M150 0h450v400C520 300 330 330 250 240 180 160 190 70 150 0z" fill="url(#g3)"/>
+      <g fill="#C3D9F3">
+        <rect x="270" y="170" width="34" height="150"/><rect x="310" y="130" width="42" height="190"/><rect x="358" y="190" width="30" height="130"/>
+        <rect x="394" y="150" width="46" height="170"/><rect x="446" y="205" width="36" height="115"/><rect x="540" y="160" width="40" height="160"/>
+        <rect x="502" y="70" width="10" height="250"/><rect x="494" y="110" width="26" height="22" rx="4"/><rect x="505" y="40" width="4" height="34"/>
+      </g>
+      <path d="M0 0c70 10 150 40 190 110 40 70 30 150 110 210 80 60 200 40 300 120V460H470C380 390 250 420 170 340 90 260 120 150 70 80 50 50 20 20 0 0z" fill="url(#g1)" opacity=".92" transform="translate(120 -30) scale(.82)"/>
+      <path d="M260 460c60-70 190-60 340-150v60c-110 60-200 50-270 90z" fill="url(#g2)"/>
+    </svg>
+    <div class="cert"><b>{e(t['ill_title'])}</b><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div>
+      <svg class="sig" viewBox="0 0 90 30"><path d="M4 22c8-14 14-18 16-8s-6 12-2 4 12-12 16-4 6 6 12 0 10-4 16-2 12 2 22-2" fill="none" stroke="#0F2F66" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="gold"><i></i></span></div>
+    <svg class="shield" viewBox="0 0 120 140"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#1557C0"/></linearGradient></defs>
+      <path d="M60 6l48 16v40c0 36-22 58-48 70C34 120 12 98 12 62V22z" fill="url(#g4)" stroke="#fff" stroke-width="6"/>
+      <path d="M38 68l16 16 30-34" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="isos">{isos}</div>
   </div>
 </div></div>
 
