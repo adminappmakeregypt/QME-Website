@@ -522,6 +522,20 @@ h1{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.22}
 .heroimg{display:block;width:calc(100% + 70px);max-width:none;height:auto;margin-top:-56px;margin-inline-end:-70px;border-radius:0 0 0 70px;-webkit-mask-image:linear-gradient(to right,transparent,#000 16%);mask-image:linear-gradient(to right,transparent,#000 16%)}
 [dir=rtl] .heroimg{border-radius:0 0 70px 0;-webkit-mask-image:linear-gradient(to left,transparent,#000 16%);mask-image:linear-gradient(to left,transparent,#000 16%)}
 @media (max-width:900px){.ill{max-width:none}.heroimg,[dir=rtl] .heroimg{width:100%;margin:0;border-radius:22px;-webkit-mask-image:none;mask-image:none}}
+
+/* v6: client high-resolution Cairo photo as full-width banner background */
+.hero{background:#F1F7FF;padding:64px 0 160px}
+[dir=rtl] .hero{background:#F1F7FF}
+.hero::before{display:block;content:"";position:absolute;inset:0;width:auto;height:auto;border-radius:0;background:url(/img/hero-bg.jpg) right center/cover no-repeat;z-index:0}
+.hero::after{display:block;content:"";position:absolute;inset:0;width:auto;height:auto;border-radius:0;background:linear-gradient(to right,rgba(255,255,255,.94) 0%,rgba(255,255,255,.8) 30%,rgba(255,255,255,0) 56%);z-index:0}
+[dir=rtl] .hero::before,[dir=rtl] .hero::after{transform:scaleX(-1)}
+.ill{min-height:440px}
+.cert{inset-inline-start:2%}
+@media (max-width:900px){
+ .hero::after{background:rgba(255,255,255,.84)}
+ .ill{max-width:560px;min-height:400px}
+}
+@media (max-width:600px){.ill{min-height:360px}}
 """
 
 JS = """
@@ -635,7 +649,15 @@ def render(t):
     <div class="cta"><a class="btn arrow" href="#contact">{ico('plane')}{e(t['cta_quote'])}</a><a class="btn out" href="/certificate-search/">{ico('shieldcheck')}{e(t['nav_verify'])}</a></div>
     <p class="fact"><a href="#accreditation">{e(t['hero_fact'])}</a></p>
   </div>
-  <div class="ill" aria-hidden="true"><img class="heroimg" src="/img/hero.jpg?v=2" alt="" width="1300" height="1120"></div>
+  <div class="ill" aria-hidden="true">
+    <div class="cert"><b>{e(t['ill_title'])}</b><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div>
+      <svg class="sig" viewBox="0 0 90 30"><path d="M4 22c8-14 14-18 16-8s-6 12-2 4 12-12 16-4 6 6 12 0 10-4 16-2 12 2 22-2" fill="none" stroke="#0F2F66" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="gold"><i></i></span></div>
+    <svg class="shield" viewBox="0 0 120 140"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#1557C0"/></linearGradient></defs>
+      <path d="M60 6l48 16v40c0 36-22 58-48 70C34 120 12 98 12 62V22z" fill="url(#g4)" stroke="#fff" stroke-width="6"/>
+      <path d="M38 68l16 16 30-34" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="isos">{isos}</div>
+  </div>
 </div></div>
 
 <div class="svc"><div class="wrap">{svc}</div></div>
@@ -720,7 +742,7 @@ import re
 def preview(s, base="/QME-Website", live="https://qme-eg.com"):
     """Version for the GitHub Pages preview address. Never upload this one to qme-eg.com."""
     s = s.replace('href="/ar/"', f'href="{base}/ar/"').replace('href="/"', f'href="{base}/"')
-    s = s.replace('src="/img/', f'src="{base}/img/')
+    s = s.replace('src="/img/', f'src="{base}/img/').replace('url(/img/', f'url({base}/img/')
     s = re.sub(r'(href|src)="/(?!/|' + base.strip("/") + ')', rf'\1="{live}/', s)
     return s.replace('<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"')
 
