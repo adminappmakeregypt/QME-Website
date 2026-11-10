@@ -635,7 +635,7 @@ def render(t):
     <div class="cta"><a class="btn arrow" href="#contact">{ico('plane')}{e(t['cta_quote'])}</a><a class="btn out" href="/certificate-search/">{ico('shieldcheck')}{e(t['nav_verify'])}</a></div>
     <p class="fact"><a href="#accreditation">{e(t['hero_fact'])}</a></p>
   </div>
-  <div class="ill" aria-hidden="true"><img class="heroimg" src="/img/hero.jpg" alt="" width="810" height="734"></div>
+  <div class="ill" aria-hidden="true"><img class="heroimg" src="/img/hero.jpg?v=2" alt="" width="1300" height="1120"></div>
 </div></div>
 
 <div class="svc"><div class="wrap">{svc}</div></div>
