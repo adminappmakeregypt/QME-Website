@@ -516,6 +516,12 @@ h1{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1.22}
  .shield{width:110px;top:190px;inset-inline-start:34%}
  .sc .no{font-size:1.6rem}
 }
+
+/* v4: client artwork as hero image */
+.ill{min-height:0}
+.heroimg{display:block;width:calc(100% + 70px);max-width:none;height:auto;margin-top:-56px;margin-inline-end:-70px;border-radius:0 0 0 70px;-webkit-mask-image:linear-gradient(to right,transparent,#000 16%);mask-image:linear-gradient(to right,transparent,#000 16%)}
+[dir=rtl] .heroimg{border-radius:0 0 70px 0;-webkit-mask-image:linear-gradient(to left,transparent,#000 16%);mask-image:linear-gradient(to left,transparent,#000 16%)}
+@media (max-width:900px){.ill{max-width:none}.heroimg,[dir=rtl] .heroimg{width:100%;margin:0;border-radius:22px;-webkit-mask-image:none;mask-image:none}}
 """
 
 JS = """
@@ -629,30 +635,7 @@ def render(t):
     <div class="cta"><a class="btn arrow" href="#contact">{ico('plane')}{e(t['cta_quote'])}</a><a class="btn out" href="/certificate-search/">{ico('shieldcheck')}{e(t['nav_verify'])}</a></div>
     <p class="fact"><a href="#accreditation">{e(t['hero_fact'])}</a></p>
   </div>
-  <div class="ill" aria-hidden="true">
-    <svg class="sky" viewBox="0 0 600 460" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2F7DE1"/><stop offset="1" stop-color="#0F2F66"/></linearGradient>
-        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7AD15A"/><stop offset="1" stop-color="#2A9D4B"/></linearGradient>
-        <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DCEBFB"/><stop offset="1" stop-color="#F3F8FF"/></linearGradient>
-      </defs>
-      <path d="M150 0h450v400C520 300 330 330 250 240 180 160 190 70 150 0z" fill="url(#g3)"/>
-      <g fill="#C3D9F3">
-        <rect x="270" y="170" width="34" height="150"/><rect x="310" y="130" width="42" height="190"/><rect x="358" y="190" width="30" height="130"/>
-        <rect x="394" y="150" width="46" height="170"/><rect x="446" y="205" width="36" height="115"/><rect x="540" y="160" width="40" height="160"/>
-        <rect x="502" y="70" width="10" height="250"/><rect x="494" y="110" width="26" height="22" rx="4"/><rect x="505" y="40" width="4" height="34"/>
-      </g>
-      <path d="M0 0c70 10 150 40 190 110 40 70 30 150 110 210 80 60 200 40 300 120V460H470C380 390 250 420 170 340 90 260 120 150 70 80 50 50 20 20 0 0z" fill="url(#g1)" opacity=".92" transform="translate(120 -30) scale(.82)"/>
-      <path d="M260 460c60-70 190-60 340-150v60c-110 60-200 50-270 90z" fill="url(#g2)"/>
-    </svg>
-    <div class="cert"><b>{e(t['ill_title'])}</b><div class="ln"></div><div class="ln"></div><div class="ln s"></div><div class="ln"></div>
-      <svg class="sig" viewBox="0 0 90 30"><path d="M4 22c8-14 14-18 16-8s-6 12-2 4 12-12 16-4 6 6 12 0 10-4 16-2 12 2 22-2" fill="none" stroke="#0F2F66" stroke-width="2" stroke-linecap="round"/></svg>
-      <span class="gold"><i></i></span></div>
-    <svg class="shield" viewBox="0 0 120 140"><defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FA3FF"/><stop offset="1" stop-color="#1557C0"/></linearGradient></defs>
-      <path d="M60 6l48 16v40c0 36-22 58-48 70C34 120 12 98 12 62V22z" fill="url(#g4)" stroke="#fff" stroke-width="6"/>
-      <path d="M38 68l16 16 30-34" fill="none" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    <div class="isos">{isos}</div>
-  </div>
+  <div class="ill" aria-hidden="true"><img class="heroimg" src="/img/hero.jpg" alt="" width="810" height="734"></div>
 </div></div>
 
 <div class="svc"><div class="wrap">{svc}</div></div>
@@ -737,6 +720,7 @@ import re
 def preview(s, base="/QME-Website", live="https://qme-eg.com"):
     """Version for the GitHub Pages preview address. Never upload this one to qme-eg.com."""
     s = s.replace('href="/ar/"', f'href="{base}/ar/"').replace('href="/"', f'href="{base}/"')
+    s = s.replace('src="/img/', f'src="{base}/img/')
     s = re.sub(r'(href|src)="/(?!/|' + base.strip("/") + ')', rf'\1="{live}/', s)
     return s.replace('<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"')
 
@@ -746,6 +730,8 @@ for folder, fn in (("site", lambda s: s), ("preview", preview)):
     os.makedirs(os.path.join(out, "ar"), exist_ok=True)
     open(os.path.join(out, "index.html"), "w", encoding="utf-8").write(fn(render(EN)))
     open(os.path.join(out, "ar", "index.html"), "w", encoding="utf-8").write(fn(render(AR)))
+    if folder != "site" and os.path.isdir(os.path.join(ROOT, "site", "img")):
+        import shutil; shutil.copytree(os.path.join(ROOT, "site", "img"), os.path.join(out, "img"), dirs_exist_ok=True)
 urls = ["/", "/ar/", "/about-us/", "/services/certification/", "/training/", "/lead-auditor-training/", "/list-of-courses/",
         "/training-plan/", "/sustainability/", "/accreditation-registrations/", "/certificate-search/", "/news/", "/contact-us/"] + [s[4] for s in STANDARDS]
 open(os.path.join(ROOT, "site", "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n\nSitemap: {SITE}/sitemap.xml\n")
