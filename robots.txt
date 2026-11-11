@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /wp-admin/
-Allow: /wp-admin/admin-ajax.php
-
-Sitemap: https://www.qme-eg.com/sitemap.xml
-Sitemap: https://www.qme-eg.com/wp-sitemap.xml
